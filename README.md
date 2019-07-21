@@ -1,5 +1,6 @@
-# Image-textify
-A simple program that replaces the original pixels of a picture with text
+# Image-Fill
+
+A simple program that replaces the original pixels of a picture with something else
 
 ## Prerequisites
 
@@ -16,7 +17,7 @@ pip install Pillow
 ## Run
 
 ```bash
-python image_textify.py image
+python porg.py image
 ```
 
 ## Usage
@@ -48,10 +49,13 @@ optional arguments:
 [Test image source](https://unsplash.com/photos/sirEpWjfSmo)
 
 Original image:
-    ![original image](./images/dog.jpg)
+![original image](./images/dog.jpg)
     
-Processed image:
-    ![processed image](./images/dog-textified.jpg)
+Textify:
+![textify image](./images/dog-textified.jpg)
+
+Image on image:
+![image on image](./images/dog-image-on-image.jpg)
     
 ## Note
 
@@ -59,6 +63,11 @@ Because I want to use CJK text,
 I have set a font that supports CJK text Under the font directory.
 
 You could specify the font to use, if the default font is not displayed
+
+## TODO
+
+- [ ] image on image command line parser
+- [ ] combine two programs
 
     
 ## License
