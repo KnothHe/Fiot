@@ -47,8 +47,8 @@ class ImageTextify:
         draw = ImageDraw.Draw(result_image)  # draw on result image
         font = ImageFont.truetype(self.font, block_size)  # font used
         # iterator and replace
-        for h in range(height // block_size):
-            for w in range(width // block_size):
+        for h in range(0, height // block_size):
+            for w in range(0, width // block_size):
                 block_width = w * block_size
                 block_height = h * block_size
                 # initialize fill color
@@ -57,6 +57,10 @@ class ImageTextify:
                 else:
                     fill_color = (0, 0, 0)
                 # get average color in the block
+                width_begin = max(0, block_width)
+                width_end = min(width, block_width + block_size)
+                height_begin = max(0, block_height)
+                height_end = min(height, block_height + block_size)
                 for i in range(block_width, block_width + block_size):
                     for j in range(block_height, block_height + block_size):
                         pixel = self.orig_image.getpixel((i / zoom_scale, j / zoom_scale))
@@ -64,10 +68,11 @@ class ImageTextify:
                             fill_color = fill_color + pixel
                         else:
                             fill_color = tuple(map(operator.add, fill_color, pixel))
+                block_area = (width_end - width_begin) * (height_end - height_begin)
                 if self.gray:
-                    fill_color = fill_color // ((block_size + 1) * (block_size + 1))
+                    fill_color = fill_color // block_area
                 else:
-                    fill_color = tuple(x // ((block_size + 1) * (block_size + 1)) for x in fill_color)
+                    fill_color = tuple(x // block_area for x in fill_color)
                 # draw text on the result image
                 draw.text((block_width, block_height),
                           self.textSet.next(),
