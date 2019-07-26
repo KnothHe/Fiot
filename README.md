@@ -1,6 +1,6 @@
 # Image-Fill
 
-A simple program that replaces the original pixels of a picture with something else
+A simple program that replaces the original pixels of a picture with other things
 
 ## Prerequisites
 
@@ -23,39 +23,27 @@ python porg.py image
 ## Usage
 
 ~~~
-usage: image_textify.py [-h] [--lines LINES] [--text TEXT] [--gray GRAY]
-                        [--output OUTPUT] [--font FONT]
-                        input
-
-A simple program that replaces the original pixels of a picture with text
-
-positional arguments:
-  input                 input file
-
-optional arguments:
-  -h, --help            show this help message and exit
-  --lines LINES, -l LINES
-                        text lines will on the image, default: 50
-  --text TEXT, -t TEXT  text will be drawn on the image, default: text
-  --gray GRAY, -g GRAY  whether to output grayscale image, default: False
-  --output OUTPUT, -o OUTPUT
-                        output file path, default: ./a.extension
-  --font FONT, -f FONT  specify the font to use, if the default font is not
-                        displayed
+python fiot.py -h
 ~~~
 
 ## Result
 
 [Test image source](https://unsplash.com/photos/sirEpWjfSmo)
 
-Original image:
-![original image](./images/dog.jpg)
+- Original image:
+![original image](./images/dog-test01.jpg)
     
-Textify:
-![textify image](./images/dog-textified.jpg)
+- Image filled with text (50x50):
+![textify image](./images/dog-filled-with-text.jpg)
 
-Image on image:
-![image on image](./images/dog-image-on-image.jpg)
+- Image filled with itself (20x20):
+![image filled with itself](./images/dog-image-on-image.jpg)
+
+Image filled with other image (10x10):
+![image filled with other image](./images/dog-filled-with-other-image.jpg)
+
+Image filled with images include itself (10x10):
+![image filled with images include itself](./images/dog-filled-with-images-include-itself.jpg)
     
 ## Note
 
