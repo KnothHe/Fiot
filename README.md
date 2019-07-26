@@ -1,4 +1,6 @@
-# Image-Fill
+# Fiot
+
+Fill image with other things
 
 A simple program that replaces the original pixels of a picture with other things
 
@@ -26,6 +28,24 @@ python porg.py image
 python fiot.py -h
 ~~~
 
+- Fill image with text
+~~~
+python fiot.py fit -h
+~~~
+or
+~~~
+python fit.py -h
+~~~
+
+- Fill image with image[s]
+~~~
+python fiot.py fii -h
+~~~
+or
+~~~
+python fii.py -h
+~~~
+
 ## Result
 
 [Test image source](https://unsplash.com/photos/sirEpWjfSmo)
@@ -39,10 +59,10 @@ python fiot.py -h
 - Image filled with itself (20x20):
 ![image filled with itself](./images/dog-image-on-image.jpg)
 
-Image filled with other image (10x10):
+- Image filled with other image (10x10):
 ![image filled with other image](./images/dog-filled-with-other-image.jpg)
 
-Image filled with images include itself (10x10):
+- Image filled with images include itself (10x10):
 ![image filled with images include itself](./images/dog-filled-with-images-include-itself.jpg)
     
 ## Note
@@ -54,8 +74,8 @@ You could specify the font to use, if the default font is not displayed
 
 ## TODO
 
-- [ ] image on image command line parser
-- [ ] combine two programs
+- [x] image on image (fii) command line parser
+- [x] combine two programs, though it is very ugly now
 
     
 ## License

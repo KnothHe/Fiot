@@ -1,3 +1,4 @@
+#!/bin/python3
 from PIL import Image, ImageFont, ImageDraw
 import operator
 import argparse

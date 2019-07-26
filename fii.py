@@ -1,5 +1,8 @@
 #!/bin/python3
 from PIL import Image
+import argparse
+import os
+import sys
 
 
 class ImageSet:
@@ -19,7 +22,7 @@ class ImageOnImage:
 
     def __init__(self, images, factor=20, include_self=True):
         self.orig_image = images[0]
-        if not include_self:
+        if not include_self and len(images) > 1:
             images = images[1:]
         self.factor = factor
         scaled_width, scaled_height = [s // factor for s in list(images[0].size)]
@@ -58,7 +61,7 @@ class ImageOnImage:
         return result_image
 
 
-def main():
+def test():
     infiles = ["./images/dog-test01.jpg", "./images/dog-test02.jpg"]
     try:
         # open image
@@ -71,7 +74,59 @@ def main():
         result_image = ImageOnImage(images, 10, include_self=True).process()
         result_image.save("image-on-image.jpg")
     except IOError:
-        print("Can't open image", infiles)
+        print("Can't open files:", infiles)
+
+
+def main():
+    # create parser
+    parser = argparse.ArgumentParser(description="A simple program that"
+                                                 " replaces the original "
+                                                 "pixels of a picture with image[s]")
+    # add arguments
+    parser.add_argument('infiles', metavar='input',
+                        type=str,
+                        nargs="+",
+                        help='input files, at least one file')
+    parser.add_argument('--factor', '-f', dest='factor',
+                        type=int,
+                        default=20,
+                        help='text lines will on the image, default: 20')
+    parser.add_argument('--include_self', '-i', dest='include_self',
+                        type=bool,
+                        default=False,
+                        help='whether to include the output image as background, '
+                             'default: not include. However if just one image as input'
+                             'this value must be True')
+    parser.add_argument('--output', '-o', dest='output',
+                        type=str,
+                        default='default',
+                        help='output file path, default: ./a.extension')
+
+    # get arguments
+    args = parser.parse_args()
+    infiles = args.infiles
+    factor = args.factor
+    include_self = args.include_self
+    outfile = args.output
+
+    # process
+    if outfile == 'default':
+        outfile = './a' + os.path.splitext(infiles[0])[1]
+    try:
+        # open image
+        images = []
+        for file in infiles:
+            images.append(Image.open(file))
+        print("Dealing with", infiles[0])
+        print("Image size: ", images[0].size)
+        # process image
+        result_image = ImageOnImage(images=images, factor=factor, include_self=include_self).process()
+        # save image
+        result_image.save(outfile)
+        result_image.close()
+        print("Saved as", outfile, "\nSize: ", result_image.size, "\n")
+    except IOError:
+        print("Can't open files:", infiles)
 
 
 if __name__ == '__main__':
