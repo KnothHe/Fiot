@@ -16,12 +16,6 @@ Python interpreter and package Pillow.
 pip install Pillow
 ```
 
-## Run
-
-```bash
-python porg.py image
-```
-
 ## Usage
 
 ~~~
