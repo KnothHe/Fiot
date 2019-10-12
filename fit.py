@@ -3,7 +3,7 @@ from PIL import Image, ImageFont, ImageDraw
 import operator
 import argparse
 import os
-
+import sys
 
 class TextSet:
     def __init__(self, s):
@@ -85,6 +85,18 @@ class ImageTextify:
         return result_image
 
 
+def isColorString(color):
+    if len(color) != 6:
+        return False
+    try:
+        r, g, b = int(color[0:2], 16), int(color[2:4], 16), int(color[4:6], 16)
+    except ValueError:
+        return False
+    if r < 0 or r >= 256 or g < 0 or g >= 256 or b < 0 or b >= 256:
+        return False
+    return True
+
+
 def main():
     # create parser
     parser = argparse.ArgumentParser(description="A simple program that"
@@ -113,6 +125,11 @@ def main():
                         type=str,
                         default='./font/NotoSansCJK-Regular.ttc',
                         help='specify the font to use, if the default font is not displayed')
+    parser.add_argument('--background-color', '-b', dest='background_color',
+                        type=str,
+                        default='000000',
+                        help='specify the background color in hex format, e.g. 000000')
+    # specify the background color in hex format, e.g. 000000
     # get arguments
     args = parser.parse_args()
     infile = args.infile
@@ -121,6 +138,11 @@ def main():
     gray = args.gray
     outfile = args.output
     font = args.font
+    background_color = args.background_color
+    if not isColorString(background_color):
+        sys.exit("background color format is wrong.")
+    r, g, b = int(background_color[0:2], 16), int(background_color[2:4], 16), int(background_color[4:6], 16)
+    background_color = (r, g, b)
     # process
     if outfile == 'default':
         outfile = './a' + os.path.splitext(infile)[1]
@@ -130,7 +152,9 @@ def main():
         print("Dealing with", infile)
         print("Image size: ", image.size)
         # textify
-        result_image = ImageTextify(image, font, text_lines=text_lines, text=text, gray=gray).textify()
+        image_textify = ImageTextify(image, font, text_lines=text_lines, text=text, gray=gray)
+        image_textify.setBackgroundColor(background_color)
+        result_image = image_textify.textify()
         # save image
         result_image.save(outfile)
         result_image.close()

@@ -70,7 +70,7 @@ You could specify the font to use, if the default font is not displayed
 
 - [x] image on image (fii) command line parser
 - [x] combine two programs, though it is very ugly now
-- [ ] add set background color argument
+- [x] add set background color argument
 - [ ] add whether loop text argument
 
 ## License
