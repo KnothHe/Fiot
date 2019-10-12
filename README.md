@@ -52,7 +52,7 @@ python fii.py -h
 
 - Original image:
 ![original image](./images/dog-test01.jpg)
-    
+
 - Image filled with text (50x50):
 ![textify image](./images/dog-filled-with-text.jpg)
 
@@ -64,10 +64,10 @@ python fii.py -h
 
 - Image filled with images include itself (10x10):
 ![image filled with images include itself](./images/dog-filled-with-images-include-itself.jpg)
-    
+
 ## Note
 
-Because I want to use CJK text, 
+Because I want to use CJK text,
 I have set a font that supports CJK text Under the font directory.
 
 You could specify the font to use, if the default font is not displayed
@@ -76,8 +76,9 @@ You could specify the font to use, if the default font is not displayed
 
 - [x] image on image (fii) command line parser
 - [x] combine two programs, though it is very ugly now
+- [ ] add set background color argument
+- [ ] add whether loop text argument
 
-    
 ## License
 
 Though it is so tiny and may not good, it still has a licence.
