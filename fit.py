@@ -42,8 +42,8 @@ class ImageTextify:
         self.height = self.orig_height * self.zoom_scale
         self.block_size = self.height // self.text_lines
 
-    def setBackgroundColor(self, backgournd_color):
-        self.background_color = backgournd_color
+    def setBackgroundColor(self, background_color):
+        self.background_color = background_color
 
     def replace(self, image):
         zoom_scale = self.zoom_scale
@@ -53,7 +53,9 @@ class ImageTextify:
         # font, draw and text
         draw = ImageDraw.Draw(image)  # draw on result image
         font = ImageFont.truetype(self.font, block_size)  # font used
-        # iterator and replace
+        x_bias = self.text_lines / 8
+        y_bias = 400 / self.text_lines
+    # iterator and replace
         for h in range(0, height // block_size):
             for w in range(0, width // block_size):
                 block_width = w * block_size
@@ -83,12 +85,14 @@ class ImageTextify:
                 # draw text on the result image
                 try:
                     text = self.textSet.next()
-                    draw.text((block_width, block_height),
+                    draw.text((block_width + x_bias, block_height - y_bias),
                               text,
                               fill=fill_color,
                               font=font)
                 except Exception as inst:
                     return image
+        # draw.text((0, -5), "画", (60, 63, 65), font=font)
+        print(x_bias, y_bias)
         return image
 
     def textify(self):
